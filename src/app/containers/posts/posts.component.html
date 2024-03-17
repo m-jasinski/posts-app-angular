@@ -1,0 +1,21 @@
+@if (posts.length > 0) {
+<button
+  class="bg-primary hover:bg-slate-800 text-white my-5 px-3 py-2 mx-auto"
+  [disabled]="!isFetchBtnEnabled"
+  (click)="fetchComents()"
+>
+  Fetch Comments
+</button>
+<h1 class="text-2xl mb-6">Posts:</h1>
+<ul class="posts-list">
+  @for (post of posts; track post.ID) {
+  <li class="post mb-8 pb-8 border-gray-100 border-b-2">
+    <app-post [post]="post"></app-post>
+  </li>
+  }
+</ul>
+} @else {
+<div class="flex flex-row">
+  <p class="mt-4">No posts.</p>
+</div>
+}

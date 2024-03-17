@@ -1,0 +1,38 @@
+<div class="flex flex-col md:flex-row w-full">
+  <img
+    class="w-40 h-40 object-cover hidden md:block"
+    [src]="post.post_thumbnail.URL"
+    [alt]="post.title"
+  />
+  <div class="md:ml-4 flex flex-col justify-between">
+    <div>
+      <a [href]="post.URL" target="_blank" rel="nofollow" [title]="post.title"
+        ><h2 class="text-xl" [innerHTML]="post.title"></h2
+      ></a>
+      <div [innerHTML]="post.excerpt"></div>
+    </div>
+    <div class="flex flex-row mt-3 items-center">
+      <div class="overflow-hidden rounded-full">
+        <img
+          class="w-10 h-10"
+          [src]="post.author.avatar_URL"
+          [alt]="post.author.name"
+        />
+      </div>
+      <div class="ml-3">{{ post.author.name }}</div>
+    </div>
+  </div>
+</div>
+@if (post.comments) {
+<h3 class="mt-8 mb-3 text-lg">Comments:</h3>
+<ul>
+  @for (comment of post.comments; track comment.ID) {
+  <li class="bg-gray-100 p-3 mb-4 rounded-lg flex flex-col">
+    <div class="text-gray-800 text-sm mb-1">{{ comment.author.name }}</div>
+    <div [innerHTML]="comment.content"></div>
+  </li>
+  } @empty {
+  <li>No comments.</li>
+  }
+</ul>
+}
