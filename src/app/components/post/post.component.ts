@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { PostDTO } from '../../api/dto/Posts.dto';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './post.component.html',
   styleUrl: './post.component.css',
 })
