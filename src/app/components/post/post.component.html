@@ -5,6 +5,7 @@
     width="40"
     [ngSrc]="post.post_thumbnail.URL"
     [alt]="post.title"
+    loading="lazy"
   />
   <div class="md:ml-4 flex flex-col justify-between">
     <div>
@@ -21,6 +22,7 @@
           width="40"
           [ngSrc]="post.author.avatar_URL"
           [alt]="post.author.name"
+          loading="lazy"
         />
       </div>
       <div class="ml-3">{{ post.author.name }}</div>
