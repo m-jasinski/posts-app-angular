@@ -1,6 +1,6 @@
 @if (posts.length > 0) {
 <button
-  class="bg-primary hover:bg-slate-800 text-white my-5 px-3 py-2 mx-auto"
+  class="bg-accent text-black hover:text-white hover:bg-slate-800 my-5 px-3 py-2 mx-auto rounded-md"
   [disabled]="!isFetchBtnEnabled"
   (click)="fetchComents()"
 >
@@ -10,7 +10,7 @@
 <ul class="posts-list">
   @for (post of posts; track post.ID) {
   <li class="post mb-8 pb-8 border-gray-100 border-b-2">
-    <app-post [post]="post"></app-post>
+    <app-post [post]="post" [showComments]="!isFetchBtnEnabled"></app-post>
   </li>
   }
 </ul>

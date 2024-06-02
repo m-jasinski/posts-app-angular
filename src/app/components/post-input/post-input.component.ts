@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -6,7 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PostService } from '../post/post.service';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-post-input',
@@ -21,13 +27,25 @@ export class PostInputComponent implements OnInit {
     Validators.min(1),
     Validators.max(20),
   ]);
+  @ViewChild('el', { static: true }) inputEl: any;
 
   constructor(private fb: FormBuilder, private postService: PostService) {}
 
   ngOnInit(): void {
     this.postsLengthControl.setValue(this.postService.getPostNumber());
+    this.inputEl.nativeElement.style.setProperty(
+      '--value',
+      '' + this.postService.getPostNumber()
+    );
     this.postsLengthControl.valueChanges
-      .pipe(debounceTime(200), distinctUntilChanged())
-      .subscribe((value) => this.postService.setPostNumber(value));
+      .pipe(distinctUntilChanged())
+      .subscribe((value) => {
+        this.inputEl.nativeElement.style.setProperty('--value', '' + value);
+        // this.postService.setPostNumber(value);
+      });
+  }
+
+  setPostLength(): void {
+    this.postService.setPostNumber(this.postsLengthControl.value);
   }
 }

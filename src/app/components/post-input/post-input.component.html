@@ -1,8 +1,7 @@
-<form (submit)="($event)" class="py-5">
-  <fieldset class="flex flex-row">
-    <label for="post-length"
-      >Set number of posts to render (1-20):
-      {{ postsLengthControl.value }}</label
+<form (submit)="($event)" class="py-5 text-white">
+  <fieldset class="flex flex-col">
+    <label for="post-length" class="mb-2"
+      >Set number of posts to render (1-20)</label
     >
     <input
       [formControl]="postsLengthControl"
@@ -10,7 +9,17 @@
       type="range"
       min="1"
       max="20"
-      class="border-primary border-2 w-auto max-w-fit ml-5"
+      class="styled-slider slider-progress my-2"
+      (mouseleave)="setPostLength()"
+      #el
     />
+    <p>
+      {{ postsLengthControl.value }}
+      {{
+        postsLengthControl.value && postsLengthControl.value > 1
+          ? "posts"
+          : "post"
+      }}
+    </p>
   </fieldset>
 </form>

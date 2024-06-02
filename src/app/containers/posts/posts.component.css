@@ -2,6 +2,3 @@ button:disabled {
   @apply bg-slate-200 text-black;
   cursor: not-allowed;
 }
-.post:last-child {
-  border: none;
-}
