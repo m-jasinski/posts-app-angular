@@ -1,13 +1,10 @@
 <div class="bg-gray-200">
   <div class="container mx-auto px-4">
-    <app-post-input
-      [howManyPosts]="howManyPosts"
-      (changeNumberPostEvent)="updatePostNumber($event)"
-    ></app-post-input>
+    <app-post-input></app-post-input>
   </div>
 </div>
 <div class="container mx-auto px-4">
-  <app-posts [howManyPosts]="howManyPosts"></app-posts>
+  <app-posts></app-posts>
 </div>
 
 <router-outlet> </router-outlet>

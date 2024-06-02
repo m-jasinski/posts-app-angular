@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { PostDTO, CommentDTO } from '../../api/dto/Posts.dto';
 import { PostsService } from '../../api/posts.service';
 import { PostComponent } from '../../components/post/post.component';
+import { PostService } from '../../components/post/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -9,29 +10,27 @@ import { PostComponent } from '../../components/post/post.component';
   imports: [PostComponent],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
-  providers: [PostsService],
 })
-export class PostsComponent implements OnInit {
-  @Input() set howManyPosts(data: number) {
-    this.postLenth = data;
-    this.fetchData(this.postLenth);
-  }
-  postLenth: number = 0;
+export class PostsComponent {
+  postLength: number | null = 0;
   posts: PostDTO[] = [];
   isFetchBtnEnabled = true;
   howManyComments = 1;
   postsService: PostsService = inject(PostsService);
 
-  ngOnInit(): void {
-    this.fetchData(this.postLenth);
+  constructor(private postService: PostService) {
+    effect(() => {
+      this.postLength = this.postService.getPostNumber();
+      this.fetchData(this.postLength);
+    });
   }
 
-  async fetchData(length: number): Promise<void> {
+  async fetchData(length: number | null): Promise<void> {
     if (length === 0) {
       this.posts = [];
       return;
     }
-    const response = await this.postsService.fetchPosts(length);
+    const response = await this.postsService.fetchPosts(this.postLength);
 
     this.posts = response ? response : [];
     this.isFetchBtnEnabled = true;

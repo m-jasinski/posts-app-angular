@@ -5,7 +5,7 @@ import { CommentDTO, PostDTO } from './dto/Posts.dto';
   providedIn: 'root',
 })
 export class PostsService {
-  async fetchPosts(length: number): Promise<PostDTO[]> {
+  async fetchPosts(length: number | null): Promise<PostDTO[]> {
     return fetch(
       `https://public-api.wordpress.com/rest/v1.1/sites/en.blog.wordpress.com/posts/?number=${length}`
     )
