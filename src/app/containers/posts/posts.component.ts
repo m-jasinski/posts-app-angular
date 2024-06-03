@@ -40,13 +40,18 @@ export class PostsComponent {
     this.isFetchBtnEnabled = false;
     for (let post of this.posts) {
       if (post.discussion.comment_count > 0) {
-        const comments: CommentDTO[] = await this.postsService.fetchComment(
-          post.ID,
-          this.howManyComments
-        );
-        post.comments = comments;
-        post = { ...post };
-        this.posts = [...this.posts];
+        try {
+          const comments: CommentDTO[] = await this.postsService.fetchComment(
+            post.ID,
+            this.howManyComments
+          );
+          post.comments = comments;
+          post = { ...post };
+          this.posts = [...this.posts];
+        } catch (e) {
+          this.isFetchBtnEnabled = true;
+          console.error(`Cannot fetch comments. ${e}`);
+        }
       }
     }
   }
